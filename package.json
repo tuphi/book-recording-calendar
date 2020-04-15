@@ -1,11 +1,22 @@
 {
   "name": "fullcalendarnode",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tu Phi",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuphi/book-recording-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuphi/book-recording-calendar/issues"
+  },
+  "homepage": "https://github.com/tuphi/book-recording-calendar#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

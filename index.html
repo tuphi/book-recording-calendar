@@ -12,13 +12,13 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css">
 
   <!-- FullCalendar CSS CDN -->
-  <link href='fullcalendar/core/main.css' rel='stylesheet' />
-  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-  <link href='fullcalendar/timegrid/main.css' rel='stylesheet' />
-  <link href='fullcalendar/list/main.css' rel='stylesheet' />
+  <link href='/fullcalendar/core/main.css' rel='stylesheet' />
+  <link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
+  <link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
+  <link href='/fullcalendar/list/main.css' rel='stylesheet' />
 
   <!-- Fontawsome CDN -->
   <script src="https://kit.fontawesome.com/afcc79929e.js" crossorigin="anonymous"></script>
@@ -33,57 +33,61 @@
   <!-- Bootstrap Model Dialog -->
   <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button> -->
 
-  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Đăng ký lịch thu</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
+  <form action="/" method="post">
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Đăng ký lịch thu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
             <div class="form-group">
               <label for="date" class="col-form-label">Ngày</label>
               <!-- <input type="text" class="form-control" id="date"> -->
-              <input type="date" class="form-control" id="date" name="" value="">
+              <input type="date" class="form-control" id="date" name="date" value="">
             </div>
             <div class="form-group">
               <label for="fullname" class="col-form-label">Họ và tên</label>
-              <input type="text" class="form-control" id="fullname">
+              <input type="text" class="form-control" id="fullname" name="fullname">
             </div>
             <div class="form-group">
               <label for="book" class="col-form-label">Tên sách</label>
-              <input type="text" class="form-control" id="book">
+              <input type="text" class="form-control" id="book" name="book">
             </div>
             <div class="form-group">
               <label for="author" class="col-form-label">Tác giả</label>
-              <input type="text" class="form-control" id="author">
+              <input type="text" class="form-control" id="author" name="author">
             </div>
             <div class="form-group">
               <label for="shift">Ca thu</label>
-              <select class="form-control" id="shift">
+              <select class="form-control" id="shift" name="shift">
                 <option>Sáng: 9h - 11h30</option>
                 <option>Chiều: 2h - 4h30</option>
                 <option>Tối: 18h30 - 20h</option>
               </select>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <button type="button" class="btn btn-primary">Đăng ký</button>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+  </form>
 
   <!-- FullCalendar Script CDN -->
-  <script src='fullcalendar/core/main.js'></script>
-  <script src='fullcalendar/daygrid/main.js'></script>
-  <script src='fullcalendar/timegrid/main.js'></script>
-  <script src='fullcalendar/list/main.js'></script>
+  <script src='/fullcalendar/core/main.js'></script>
+  <script src='/fullcalendar/daygrid/main.js'></script>
+  <script src='/fullcalendar/timegrid/main.js'></script>
+  <script src='/fullcalendar/list/main.js'></script>
 
   <!-- Bootstrap Scripts -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -92,7 +96,7 @@
   <script src='fullcalendar/interaction/main.js'></script>
 
   <!-- Custom Script -->
-  <script src="index.js" charset="utf-8"></script>
+  <script src="/script/index.js" charset="utf-8"></script>
 
 </body>
 

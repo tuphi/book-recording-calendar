@@ -1,9 +1,12 @@
-var http = require('http');
-var fs = require('fs');//Library for call files
-http.createServer(function (req, res) {
-  fs.readFile('fullcalendar.html', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
-  });
-}).listen(3000);
+const express = require("express");
+const app = express();
+
+app.use(express.static("public"));
+
+app.listen(3000, function() {
+  console.log("Server is started on port 3000");
+})
+
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/index.html");
+})
