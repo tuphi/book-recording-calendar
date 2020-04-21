@@ -37,16 +37,40 @@ app.get("/", function(req, res) {
 })
 
 app.post("/", function(req, res) {
-  // console.log(req.body);
 
 })
 
 app.post("/insert", function(req, res) {
-  console.log(req.body);
   const event = new Event({
     title: req.body.title,
     startTime: req.body.start,
     endTime: req.body.end
   })
   event.save();
+  res.end('{"success" : "Updated Successfully", "status" : 200}');
+})
+
+app.get("/load", function(req, res) {
+  // const event = {
+  //   title: "Demo Event",
+  //   start: "2020-01-02",
+  //   end: "2020-01-03"
+  // }
+  // const events = [event];
+  Event.find(function(err, events) {
+    if(!err) {
+      let calEvents = [];
+      events.forEach(function(event) {
+        const calEvent = {
+          title: event.title,
+          start: event.startTime,
+          end: event.endTime
+        }
+        calEvents.push(calEvent);
+      })
+      res.send(calEvents);
+    } else {
+      console.log(err);
+    }
+  })
 })
