@@ -40,7 +40,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Đăng ký lịch thu</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Event Register</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -48,35 +48,25 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="date" class="col-form-label">Ngày</label>
-            <!-- <input type="text" class="form-control" id="date"> -->
-            <input type="date" class="form-control" id="date" name="date" value="">
+            <label for="title" class="col-form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title">
           </div>
+
           <div class="form-group">
-            <label for="fullname" class="col-form-label">Họ và tên</label>
-            <input type="text" class="form-control" id="fullname" name="fullname">
+            <label for="title" class="col-form-label">Start Time</label>
+            <input type="datetime-local" class="form-control" id="start-time" name="startTime">
           </div>
+
           <div class="form-group">
-            <label for="book" class="col-form-label">Tên sách</label>
-            <input type="text" class="form-control" id="book" name="book">
+            <label for="title" class="col-form-label">End Time</label>
+            <input type="datetime-local" class="form-control" id="end-time" name="endTime">
           </div>
-          <div class="form-group">
-            <label for="author" class="col-form-label">Tác giả</label>
-            <input type="text" class="form-control" id="author" name="author">
-          </div>
-          <div class="form-group">
-            <label for="shift">Ca thu</label>
-            <select class="form-control" id="shift" name="shift">
-              <option value="0">Sáng: 9h - 11h30</option>
-              <option value="1">Chiều: 2h - 4h30</option>
-              <option value="2">Tối: 18h30 - 20h</option>
-            </select>
-          </div>
+
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <button id="registerButton" type="submit" class="btn btn-primary">Đăng ký</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="registerButton" type="submit" class="btn btn-primary">Add</button>
         </div>
       </div>
     </div>

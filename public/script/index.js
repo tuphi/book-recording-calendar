@@ -5,18 +5,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: ['dayGrid', 'timeGrid', 'list', 'interaction'], // an array of strings!,
-
-
     header: {
       left: 'dayGridMonth,timeGridWeek,timeGridDay custom1',
       center: 'title',
       right: 'today prev,next'
     },
+    events: [],
+    selectable: true,
+    selectHelper: true,
+    select: function(start, end, allDay) {
+      $('#registerModal').modal({});
+    }
 
-    events: [{
-      title: 'All Day Event',
-      start: '2020-04-04'
-    }, ]
   });
 
   calendar.on('dateClick', function(dateClickInfo) {
@@ -54,17 +54,13 @@ $('#registerModal').on('show.bs.modal', function(event) {
 
 // Send POST Request to add an event
 $('#registerButton').on("click", function(event) {
-  const date = $('#date').val();
-  const shift = $('#shift').val();
-  const fullname = $('#fullname').val();
-  const book = $('#book').val();
-  const author = $('#author').val();
+  const title = $('#title').val();
+  const startTime = $('#start-time').val();
+  const endTime = $('#end-time').val();
 
-  $.post('/', {
-    date: date,
-    shift: shift,
-    fullname: fullname,
-    book: book,
-    author: author
+  $.post('/insert', {
+    start: startTime,
+    end: endTime,
+    title: title
   });
 })
