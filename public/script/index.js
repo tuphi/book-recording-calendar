@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log("eventTitle = " + event.title);
           $('#detail-event-title').text(event.title);
           $('#eventInfoModal').modal({});
+          $('#title').val(event.title);
+          $('#event-id').val(event.id);
+          $('#start-time').val(event.startTime);
+          $('#end-time').val(event.endTime);
         }
 
       })
@@ -55,8 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   calendar.on('dateClick', function(dateClickInfo) {
-    $("#event-id").val(eventId);
     console.log('clicked on ' + dateClickInfo.dateStr);
+    $('#title').val("");
+    $('#event-id').val("");
+    $('#start-time').val("");
+    $('#end-time').val("");
     $('#registerModal').modal({});
 
     clickedDate = dateClickInfo.dateStr;
