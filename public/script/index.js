@@ -1,6 +1,9 @@
 let clickedDate = "";
+const events = [];
+let eventId = '';
 
 document.addEventListener('DOMContentLoaded', function() {
+
   var calendarEl = document.getElementById('calendar');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -10,16 +13,49 @@ document.addEventListener('DOMContentLoaded', function() {
       center: 'title',
       right: 'today prev,next'
     },
-    events: "/load",
+    // events: "/load",
     selectable: true,
     selectHelper: true,
     select: function(start, end, allDay) {
       $('#registerModal').modal({});
+    },
+    eventClick: function(info) {
+      eventId = info.event.id;
+      $("#event-id").val(eventId);
+      $.ajax({
+        url: "/event/" + eventId,
+        method: "GET",
+        success: function(event) {
+          console.log("eventTitle = " + event.title);
+          $('#detail-event-title').text(event.title);
+          $('#eventInfoModal').modal({});
+        }
+
+      })
+
     }
 
   });
 
+  getEvents(function(events) {
+    events.forEach(function(event) {
+      let calEvents = [];
+      events.forEach(function(event) {
+        const calEvent = {
+          id: event._id,
+          title: event.title,
+          start: event.startTime,
+          end: event.endTime
+        }
+        console.log(calEvent);
+        calendar.addEvent(calEvent);
+      })
+
+    })
+  });
+
   calendar.on('dateClick', function(dateClickInfo) {
+    $("#event-id").val(eventId);
     console.log('clicked on ' + dateClickInfo.dateStr);
     $('#registerModal').modal({});
 
@@ -53,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Send POST Request to add an event
   $('#registerButton').on("click", function(event) {
+    const id = $("#event-id").val();
     const title = $('#title').val();
     const startTime = $('#start-time').val();
     const endTime = $('#end-time').val();
@@ -61,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
       url: '/insert',
       method: "POST",
       data: {
+        id: id,
         start: startTime,
         end: endTime,
         title: title
@@ -71,4 +109,20 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
   })
+
+  // Show Insert Modal when clicking the Edit Button of the Event Info Modal
+  $('#editButton').on("click", function() {
+    $('#eventInfoModal').modal('hide');
+    $('#registerModal').modal({});
+  })
 });
+
+function getEvents(callback) {
+  $.ajax({
+    url: '/allevents',
+    method: "GET",
+    success: function(events) {
+      callback(events);
+    }
+  })
+}

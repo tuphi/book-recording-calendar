@@ -41,13 +41,32 @@ app.post("/", function(req, res) {
 })
 
 app.post("/insert", function(req, res) {
-  const event = new Event({
-    title: req.body.title,
-    startTime: req.body.start,
-    endTime: req.body.end
-  })
-  event.save();
-  res.end('{"success" : "Updated Successfully", "status" : 200}');
+  const eventId = req.id;
+  if(eventId !== "") {
+    // Edit the eventTitle
+    Event.findByIdAndUpdate(eventId, {
+      title: req.body.title,
+      startTime: req.body.start,
+      endTime: req.body.end
+    },
+    function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("Updated an event");
+      }
+    }
+  )
+  } else {
+    // Create a new event
+    const event = new Event({
+      title: req.body.title,
+      startTime: req.body.start,
+      endTime: req.body.end
+    })
+    event.save();
+    res.end('{"success" : "Updated Successfully", "status" : 200}');
+  }
 })
 
 app.get("/load", function(req, res) {
@@ -58,7 +77,7 @@ app.get("/load", function(req, res) {
   // }
   // const events = [event];
   Event.find(function(err, events) {
-    if(!err) {
+    if (!err) {
       let calEvents = [];
       events.forEach(function(event) {
         const calEvent = {
@@ -74,3 +93,21 @@ app.get("/load", function(req, res) {
     }
   })
 })
+
+app.get("/allevents", function(req, res) {
+  Event.find(function(err, events) {
+    if (!err) {
+      res.send(events);
+    } else {
+      console.log(err);
+    }
+  })
+});
+
+app.get("/event/:eventId", function(req, res) {
+  const eventId = req.params.eventId;
+  console.log(eventId);
+  Event.findById(eventId, function(err, event) {
+    res.send(event);
+  })
+});

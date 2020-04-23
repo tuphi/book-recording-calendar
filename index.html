@@ -35,7 +35,7 @@
 
   <!-- Bootstrap Model Dialog -->
   <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button> -->
-
+  <!-- Register Form -->
   <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -50,6 +50,7 @@
           <div class="form-group">
             <label for="title" class="col-form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title">
+            <input type="hidden" name="checkboxList" id="event-id">
           </div>
 
           <div class="form-group">
@@ -71,6 +72,32 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Event Info -->
+  <div class="modal fade" id="eventInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Event infomation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Title: <span id="detail-event-title"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="editButton" type="button" class="btn btn-primary">Edit</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+
 
   <!-- FullCalendar Script CDN -->
   <script src='/fullcalendar/core/main.js'></script>
