@@ -41,7 +41,8 @@ app.post("/", function(req, res) {
 })
 
 app.post("/insert", function(req, res) {
-  const eventId = req.id;
+  const eventId = req.body.id;
+  console.log("clicked event id = " + eventId);
   if(eventId !== "") {
     // Edit the eventTitle
     Event.findByIdAndUpdate(eventId, {
@@ -53,6 +54,7 @@ app.post("/insert", function(req, res) {
       if(err) {
         console.log(err);
       } else {
+        res.end('{"success" : "Updated Successfully", "status" : 200}');
         console.log("Updated an event");
       }
     }
@@ -97,7 +99,20 @@ app.get("/load", function(req, res) {
 app.get("/allevents", function(req, res) {
   Event.find(function(err, events) {
     if (!err) {
-      res.send(events);
+      console.log("Num of events in DB = " + events.length);
+      let calEvents = []
+      events.forEach(function(event) {
+        const calEvent = {
+          id: event._id,
+          title: event.title,
+          start: event.startTime,
+          end: event.endTime
+        }
+        console.log(calEvent);
+        calEvents.push(calEvent);
+        // calendar.addEvent(calEvent);
+      })
+      res.send(calEvents);
     } else {
       console.log(err);
     }

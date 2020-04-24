@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
       center: 'title',
       right: 'today prev,next'
     },
-    // events: "/load",
+    events: "/allevents",
     selectable: true,
     selectHelper: true,
     select: function(start, end, allDay) {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
           $('#detail-event-title').text(event.title);
           $('#eventInfoModal').modal({});
           $('#title').val(event.title);
-          $('#event-id').val(event.id);
+          $('#event-id').val(event._id);
           $('#start-time').val(event.startTime);
           $('#end-time').val(event.endTime);
         }
@@ -42,23 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-  });
-
-  // Get all event from database
-  getEvents(function(events) {
-    events.forEach(function(event) {
-      let calEvents = [];
-      events.forEach(function(event) {
-        const calEvent = {
-          id: event._id,
-          title: event.title,
-          start: event.startTime,
-          end: event.endTime
-        }
-        console.log(calEvent);
-        calendar.addEvent(calEvent);
-      })
-    })
   });
 
   // When clicking a date cell
@@ -103,10 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // When clicking the Register Button
   // Send POST Request to add an event
   $('#registerButton').on("click", function(event) {
-    const id = $("#event-id").val();
+    const id = $('#event-id').val();
     const title = $('#title').val();
     const startTime = $('#start-time').val();
     const endTime = $('#end-time').val();
+
+    console.log("clicked event id = " + id);
+    console.log("clicked event title = " + title);
+    console.log("clicked event start time = " + startTime);
+    console.log("clicked event end time = " + endTime);
 
     $.ajax({
       url: '/insert',
@@ -117,9 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         end: endTime,
         title: title
       },
-      success: function() {
+      success: function(event) {
+        console.log("success insert or edit an event")
+        $('#registerModal').modal('hide');
         // Reload the calendar
         calendar.refetchEvents();
+      },
+      error: function(err) {
+        console.log(err);
       }
     })
 
@@ -139,7 +132,21 @@ function getEvents(callback) {
     url: '/allevents',
     method: "GET",
     success: function(events) {
-      callback(events);
+      console.log("Num of events in DB = " + events.length);
+      let calEvents = []
+      events.forEach(function(event) {
+        const calEvent = {
+          id: event._id,
+          title: event.title,
+          start: event.startTime,
+          end: event.endTime
+        }
+        console.log(calEvent);
+        calEvents.push(calEvent);
+        // calendar.addEvent(calEvent);
+
+      })
+      callback(calEvents);
     }
   })
 }
