@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     select: function(start, end, allDay) {
       $('#registerModal').modal({});
     },
+
+    // When clicking an event
+    // Show detail information about the event
     eventClick: function(info) {
       eventId = info.event.id;
       $("#event-id").val(eventId);
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   });
 
+  // Get all event from database
   getEvents(function(events) {
     events.forEach(function(event) {
       let calEvents = [];
@@ -54,10 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(calEvent);
         calendar.addEvent(calEvent);
       })
-
     })
   });
 
+  // When clicking a date cell
+  // Show a dialog for user to add an event
   calendar.on('dateClick', function(dateClickInfo) {
     console.log('clicked on ' + dateClickInfo.dateStr);
     $('#title').val("");
@@ -66,15 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#end-time').val("");
     $('#registerModal').modal({});
 
+    // When a date is clicked
+    // Get the date
     clickedDate = dateClickInfo.dateStr;
-
     console.log(clickedDate);
-    // console.log("date = " + info.date);
   });
 
+  // Show calendar on the browser
   calendar.render();
 
-  // Bootstrap Modal Dialog
+  // Demo Bootstrap Modal Dialog
   $('#exampleModal').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -85,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.find('.modal-body input').val(recipient)
   })
 
-  // Bootstrap Modal Dialog
+  // Handle what to do if the register modal is shown
   $('#registerModal').on('show.bs.modal', function(event) {
     setTimeout(function() {
       var modal = $(this);
@@ -94,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200);
   })
 
+  // When clicking the Register Button
   // Send POST Request to add an event
   $('#registerButton').on("click", function(event) {
     const id = $("#event-id").val();
@@ -111,19 +118,22 @@ document.addEventListener('DOMContentLoaded', function() {
         title: title
       },
       success: function() {
+        // Reload the calendar
         calendar.refetchEvents();
       }
     })
 
   })
 
-  // Show Insert Modal when clicking the Edit Button of the Event Info Modal
+  // When clicking the Edit Button of the Event Info Modal
+  // Show Insert Modal
   $('#editButton').on("click", function() {
     $('#eventInfoModal').modal('hide');
     $('#registerModal').modal({});
   })
 });
 
+// Define function to get all events from database
 function getEvents(callback) {
   $.ajax({
     url: '/allevents',
