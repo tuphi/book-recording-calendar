@@ -51,6 +51,7 @@
             <label for="date" class="col-form-label">Ngày</label>
             <!-- <input type="text" class="form-control" id="date"> -->
             <input type="date" class="form-control" id="date" name="date" value="">
+            <input type="hidden" name="event-id" id="event-id">
           </div>
           <div class="form-group">
             <label for="fullname" class="col-form-label">Họ và tên</label>
@@ -78,6 +79,79 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
           <button id="registerButton" type="submit" class="btn btn-primary">Đăng ký</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Event Info -->
+  <!-- <div class="modal fade" id="eventInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Chi tiết lịch thu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Title: <span id="detail-event-title"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="editButton" type="button" class="btn btn-primary">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  </div>
+
+  <div class="modal fade" id="eventInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Chi tiết lịch thu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="date" class="col-form-label">Ngày</label>
+            <!-- <input type="text" class="form-control" id="date"> -->
+            <input type="date" class="form-control" id="detail-date" name="date" value="" readonly>
+            <!-- <input type="hidden" name="event-id" id="event-id"> -->
+          </div>
+          <div class="form-group">
+            <label for="fullname" class="col-form-label">Họ và tên</label>
+            <input type="text" class="form-control" id="detail-fullname" name="fullname" readonly>
+          </div>
+          <div class="form-group">
+            <label for="book" class="col-form-label">Tên sách</label>
+            <input type="text" class="form-control" id="detail-book" name="book" readonly>
+          </div>
+          <div class="form-group">
+            <label for="author" class="col-form-label">Tác giả</label>
+            <input type="text" class="form-control" id="detail-author" name="author" readonly>
+          </div>
+          <div class="form-group">
+            <label for="shift">Ca thu</label>
+            <select class="form-control" id="detail-shift" name="shift" disabled="true">
+              <option value="0">Sáng: 9h - 11h30</option>
+              <option value="1">Chiều: 2h - 4h30</option>
+              <option value="2">Tối: 18h30 - 20h</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button id="editButton" type="submit" class="btn btn-primary">Chỉnh sửa</button>
+        </div>
+
       </div>
     </div>
   </div>

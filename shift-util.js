@@ -1,5 +1,3 @@
-console.log(module);
-
 // Method use the shift number [0, 1, 2] and date as parameter
 // Return a string in format:   // 2018-06-01T12:30:00-05:00
 exports.getDetailTimeByShift = function(date, shift) {
@@ -22,7 +20,7 @@ exports.getDetailTimeByShift = function(date, shift) {
       console.log("Shift is not right");
     }
     return {
-      startTime: startTime,
-      endTime: endTime
+      start: startTime,
+      end: endTime
     }
 }

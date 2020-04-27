@@ -15,13 +15,12 @@ app.use(express.static("public"));
 
 // MongoDB, Mongoose
 // Connect
-mongoose.connect("mongodb://localhost:27017:/eventCalendarDB", {
+mongoose.connect("mongodb://localhost:27017:/recordingCalendarDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 // Event Schema
 const eventSchema = new mongoose.Schema({
-  _id: String,
   fullname: String,
   book: String,
   author: String,
@@ -29,17 +28,6 @@ const eventSchema = new mongoose.Schema({
   shift: String
 })
 const Event = mongoose.model("Event", eventSchema);
-// Create a document
-const event1 = new Event({
-  _id: 1,
-  fullname: "Phí Anh Tú",
-  book: "Chí Phèo",
-  author: "Nam Cao",
-  date:
-  shift: 1
-})
-
-// event1.save();
 
 app.listen(3000, function() {
   console.log("Server is started on port 3000");
@@ -56,3 +44,73 @@ app.post("/", function(req, res) {
   const shiftDetail = shiftUtil.getDetailTimeByShift(date, shift);
   console.log("shiftDetail = " + shiftDetail.startTime + " --> " + shiftDetail.endTime);
 })
+
+
+app.get("/allevents", function(req, res) {
+  Event.find(function(err, events) {
+    if (!err) {
+      console.log("Num of events in DB = " + events.length);
+      let calEvents = []
+      events.forEach(function(event) {
+        const detailTime = shiftUtil.getDetailTimeByShift(event.date, event.shift);
+        const calEvent = {
+          id: event._id,
+          title: event.fullname + " - " + event.book + " - " + event.author,
+          start: detailTime.start,
+          end: detailTime.end
+        }
+        console.log(calEvent);
+        calEvents.push(calEvent);
+        // calendar.addEvent(calEvent);
+      })
+      res.send(calEvents);
+    } else {
+      console.log(err);
+    }
+  })
+});
+
+app.post("/insert", function(req, res) {
+  const eventId = req.body.id;
+  console.log("clicked event id = " + eventId);
+  console.log(req.body);
+  if(eventId !== "") {
+    // Edit the eventTitle
+    Event.findByIdAndUpdate(eventId, {
+      fullname: req.body.fullname,
+      book: req.body.book,
+      author: req.body.author,
+      date: req.body.date,
+      shift: req.body.shift
+    },
+    function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.end('{"success" : "Updated Successfully", "status" : 200}');
+        console.log("Updated an event");
+      }
+    }
+  )
+  } else {
+    // Create a new event
+    const event = new Event({
+      fullname: req.body.fullname,
+      book: req.body.book,
+      author: req.body.author,
+      date: req.body.date,
+      shift: req.body.shift
+    })
+    event.save();
+    res.end('{"success" : "Updated Successfully", "status" : 200}');
+  }
+})
+
+
+app.get("/event/:eventId", function(req, res) {
+  const eventId = req.params.eventId;
+  console.log(eventId);
+  Event.findById(eventId, function(err, event) {
+    res.send(event);
+  })
+});
